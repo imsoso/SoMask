@@ -33,9 +33,22 @@
 		9CA92CC92D71D7720023ADDB /* SoMaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoMaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9C8404512D71E9CA00284A63 /* Exceptions for "SoMask" folder in "SoMask" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 9CA92CAC2D71D7720023ADDB /* SoMask */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9CA92CAF2D71D7720023ADDB /* SoMask */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9C8404512D71E9CA00284A63 /* Exceptions for "SoMask" folder in "SoMask" target */,
+			);
 			path = SoMask;
 			sourceTree = "<group>";
 		};
@@ -408,6 +421,7 @@
 				DEVELOPMENT_TEAM = 8HFVF66PA9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoMask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -437,6 +451,7 @@
 				DEVELOPMENT_TEAM = 8HFVF66PA9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SoMask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
