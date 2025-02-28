@@ -9,18 +9,22 @@ import SwiftUI
 import metamask_ios_sdk
 
 class MetaMaskRepo: ObservableObject {
-    @ObservedObject var ethereumShare = MetaMaskSDK.sharedInstance!
     
-    func connectToDapp() async {
-        let appMetadata = AppMetadata(name: "Dub Dapp", url: "https://dubdapp.com")
-
+    @ObservedObject var metamaskSDK: MetaMaskSDK
+    
+    init() {
+        let appMetadata = AppMetadata(name: "SoMask", url: "https://dubdapp.com")
         
-        @ObservedObject var metamaskSDK = MetaMaskSDK.shared(
+        metamaskSDK = MetaMaskSDK.shared(
             appMetadata,
-            transport: .deeplinking(dappScheme: "dubdapp"),
-            sdkOptions: SDKOptions(infuraAPIKey: "your-api-key", readonlyRPCMap: ["0x1": "hptts://www.testrpc.com"]) // for read-only RPC calls
+            transport: .deeplinking(dappScheme: "SoMask"),
+            sdkOptions: SDKOptions(infuraAPIKey: "c4affd9b39416c84029afdf901", readonlyRPCMap: ["0x1": "https://mainnet.infura.io/v3/37c4affd9b39416c84029afdfaaab901"]) // for read-only RPC calls
         )
         
+    }
+    
+    func connectToDapp() async {
+
         let connectResult = await metamaskSDK.connect()
         _ = await metamaskSDK.getChainId()
         
