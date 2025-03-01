@@ -34,7 +34,7 @@ class MetaMaskRepo: ObservableObject {
             sdkOptions: SDKOptions(
                 infuraAPIKey: "37c4affd9b39b901",
                 readonlyRPCMap: [
-                    "0x1": "https://www.testrpc.com"
+                    "0x1": "https://mainnet.infura.io/v3/37c4affd9b39416c84029afdfaaab901"
                 ])  // for read-only RPC calls
         )
 
@@ -60,4 +60,17 @@ class MetaMaskRepo: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
+    func getAccountBalance() async {
+        let requestResult = await metamaskSDK.getEthBalance(address: metamaskSDK.account, block: "latest")
+        
+        switch requestResult {
+        case let .success(value):
+            balance = value
+            print("Get Balance result: \(requestResult)")
+        case let .failure(error):
+            print("Get Balance error: \(error.localizedDescription)")
+        }
+    }
+
 }
