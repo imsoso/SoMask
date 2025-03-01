@@ -9,6 +9,9 @@ import Combine
 import SwiftUI
 import metamask_ios_sdk
 
+import Foundation
+import BigInt
+
 extension Notification.Name {
     static let Connection = Notification.Name("Connection")
 }
@@ -22,6 +25,7 @@ class MetaMaskRepo: ObservableObject {
         }
     }
     @Published  var metamaskSDK: MetaMaskSDK
+    @Published var balance = ""
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -66,11 +70,32 @@ class MetaMaskRepo: ObservableObject {
         
         switch requestResult {
         case let .success(value):
-            balance = value
+            balance = weiToEthString(hexWei:value, decimalPlaces: 18) ?? "0"
             print("Get Balance result: \(requestResult)")
         case let .failure(error):
             print("Get Balance error: \(error.localizedDescription)")
         }
     }
-
+    
+    func weiToEthString(hexWei: String, decimalPlaces: Int = 18) -> String? {
+        // Remove the "0x" prefix if it exists
+        let cleanedHexWei = hexWei.hasPrefix("0x") ? String(hexWei.dropFirst(2)) : hexWei
+        
+        // Convert the hexadecimal string to BigInt
+        guard let wei = BigInt(cleanedHexWei, radix: 16) else {
+            return nil
+        }
+        
+        // Convert wei to ETH by dividing by 10^18
+        let eth = Decimal(string: wei.description)! / pow(10, 18)
+        
+        // Format the ETH value as a string with the specified number of decimal places
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.maximumFractionDigits = decimalPlaces
+        formatter.numberStyle = .decimal
+        formatter.usesGroupingSeparator = false // Disable thousands separator
+        
+        return formatter.string(from: eth as NSDecimalNumber)
+    }
 }
