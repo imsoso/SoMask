@@ -32,6 +32,17 @@ struct ContentView: View {
                     .frame(width: 300, height: 50)
             }
             .buttonStyle(.borderedProminent)
+            Text("Balance: \(metaMaskRepo.balance)")
+                .fontWeight(.bold)
+            Button {
+                Task {
+                    await metaMaskRepo.getAccountBalance()
+                }
+            } label: {
+                Text("Get account balance")
+                    .frame(width: 300, height: 50)
+            }
+            .buttonStyle(.borderedProminent)
             Spacer()
         }
         .onReceive(NotificationCenter.default.publisher(for: .Connection)) { notification in
