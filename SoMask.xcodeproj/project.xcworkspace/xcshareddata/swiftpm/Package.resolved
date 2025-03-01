@@ -1,6 +1,15 @@
 {
-  "originHash" : "4e058f4d69bbc60bae856285f09af01ec099e1e1b03c0dc660c965cecb77e434",
+  "originHash" : "1295fe95ecea2b4983a004045456fda34e19c01c4770262e8f7909e0c061f0c6",
   "pins" : [
+    {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/attaswift/BigInt",
+      "state" : {
+        "revision" : "114343a705df4725dfe7ab8a2a326b8883cfd79c",
+        "version" : "5.5.1"
+      }
+    },
     {
       "identity" : "metamask-ios-sdk",
       "kind" : "remoteSourceControl",

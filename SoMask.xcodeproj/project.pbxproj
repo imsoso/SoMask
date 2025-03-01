@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9CA92CDE2D71D7BC0023ADDB /* metamask-ios-sdk in Frameworks */ = {isa = PBXBuildFile; productRef = 9CA92CDD2D71D7BC0023ADDB /* metamask-ios-sdk */; };
+		9CAEA3C32D7343F7002798AD /* BigInt in Frameworks */ = {isa = PBXBuildFile; productRef = 9CAEA3C22D7343F7002798AD /* BigInt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CA92CDE2D71D7BC0023ADDB /* metamask-ios-sdk in Frameworks */,
+				9CAEA3C32D7343F7002798AD /* BigInt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +133,7 @@
 			name = SoMask;
 			packageProductDependencies = (
 				9CA92CDD2D71D7BC0023ADDB /* metamask-ios-sdk */,
+				9CAEA3C22D7343F7002798AD /* BigInt */,
 			);
 			productName = SoMask;
 			productReference = 9CA92CAD2D71D7720023ADDB /* SoMask.app */;
@@ -216,6 +219,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				9CA92CDC2D71D7BC0023ADDB /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */,
+				9CAEA3C12D7343F7002798AD /* XCRemoteSwiftPackageReference "BigInt" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 9CA92CAE2D71D7720023ADDB /* Products */;
@@ -592,6 +596,14 @@
 				minimumVersion = 0.8.10;
 			};
 		};
+		9CAEA3C12D7343F7002798AD /* XCRemoteSwiftPackageReference "BigInt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/attaswift/BigInt";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -599,6 +611,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9CA92CDC2D71D7BC0023ADDB /* XCRemoteSwiftPackageReference "metamask-ios-sdk" */;
 			productName = "metamask-ios-sdk";
+		};
+		9CAEA3C22D7343F7002798AD /* BigInt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9CAEA3C12D7343F7002798AD /* XCRemoteSwiftPackageReference "BigInt" */;
+			productName = BigInt;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
