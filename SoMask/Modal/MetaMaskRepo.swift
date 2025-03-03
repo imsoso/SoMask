@@ -26,6 +26,10 @@ class MetaMaskRepo: ObservableObject {
     }
     @Published  var metamaskSDK: MetaMaskSDK
     @Published var balance = ""
+    @Published var gasPrice = ""
+    
+    private var errorMessage = ""
+    private var showError = false
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -38,7 +42,7 @@ class MetaMaskRepo: ObservableObject {
             sdkOptions: SDKOptions(
                 infuraAPIKey: "37c4affd9b39b901",
                 readonlyRPCMap: [
-                    "0x1": "https://mainnet.infura.io/v3/37c4affd9b39416c84029afdfaaab901"
+                    "0x1": "https://mainnet.infura.io/v3/37c4affd9b39416c84029afdfb901"
                 ])  // for read-only RPC calls
         )
 
@@ -97,5 +101,24 @@ class MetaMaskRepo: ObservableObject {
         formatter.usesGroupingSeparator = false // Disable thousands separator
         
         return formatter.string(from: eth as NSDecimalNumber)
+    }
+    
+    func getGasPrice() async {
+        let params: [String] = []
+        let getGasPriceRequest = EthereumRequest(
+            method: .ethGasPrice,
+            params: params
+        )
+
+        let requestResult = await metamaskSDK.request(getGasPriceRequest)
+
+        switch requestResult {
+        case let .success(value):
+            gasPrice = weiToEthString(hexWei:value, decimalPlaces: 18) ?? "0"
+            errorMessage = ""
+        case let .failure(error):
+            errorMessage = error.localizedDescription
+            showError = true
+        }
     }
 }
