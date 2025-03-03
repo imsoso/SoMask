@@ -27,7 +27,8 @@ class MetaMaskRepo: ObservableObject {
     @Published  var metamaskSDK: MetaMaskSDK
     @Published var balance = ""
     @Published var gasPrice = ""
-    
+    @Published var web3ClientVersion = ""
+
     private var errorMessage = ""
     private var showError = false
 
@@ -119,6 +120,26 @@ class MetaMaskRepo: ObservableObject {
         switch requestResult {
         case let .success(value):
             gasPrice = weiToEthString(hexWei:value, decimalPlaces: 18) ?? "0"
+            errorMessage = ""
+        case let .failure(error):
+            errorMessage = error.localizedDescription
+            showError = true
+        }
+    }
+    
+    func getWeb3ClientVersion() async {
+        let params: [String] = []
+        let getRequest = EthereumRequest(
+            method: .web3ClientVersion,
+            params: params
+        )
+
+        let requestResult = await metamaskSDK.request(getRequest)
+
+        switch requestResult {
+        case let .success(value):
+            web3ClientVersion = value
+//            gasPrice = weiToEthString(hexWei:value, decimalPlaces: 18) ?? "0"
             errorMessage = ""
         case let .failure(error):
             errorMessage = error.localizedDescription
