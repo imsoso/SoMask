@@ -36,13 +36,17 @@ class MetaMaskRepo: ObservableObject {
     init() {
         let appMetadata = AppMetadata(name: "SoMask", url: "https://SoMask.com")
 
+        guard let infuraRPC = Bundle.main.object(forInfoDictionaryKey: "INFURA_RPC") as? String else {
+            fatalError("INFURA_RPC not found in Configuration.xcconfig")
+        }
+        
         metamaskSDK = MetaMaskSDK.shared(
             appMetadata,
             transport: .deeplinking(dappScheme: "SoMask"),
             sdkOptions: SDKOptions(
-                infuraAPIKey: "37c4affd9b39b901",
+                infuraAPIKey: infuraRPC,
                 readonlyRPCMap: [
-                    "0x1": "https://mainnet.infura.io/v3/37c4affd9b39416c84029afdfb901"
+                    "0x1": "https://mainnet.infura.io/v3/" + infuraRPC
                 ])  // for read-only RPC calls
         )
 

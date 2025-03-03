@@ -297,6 +297,8 @@
 /* Begin XCBuildConfiguration section */
 		9CA92CD12D71D7720023ADDB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 9CA92CAF2D71D7720023ADDB /* SoMask */;
+			baseConfigurationReferenceRelativePath = Configuration.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -360,6 +362,8 @@
 		};
 		9CA92CD22D71D7720023ADDB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 9CA92CAF2D71D7720023ADDB /* SoMask */;
+			baseConfigurationReferenceRelativePath = Configuration.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
