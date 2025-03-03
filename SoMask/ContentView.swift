@@ -39,7 +39,9 @@ struct ContentView: View {
                         .fontWeight(.bold)
                     Button {
                         Task {
+                            showProgressView = true
                             await metaMaskRepo.getAccountBalance()
+                            showProgressView = false
                         }
                     } label: {
                         Text("Get account balance")
@@ -58,6 +60,24 @@ struct ContentView: View {
                         }
                     } label: {
                         Text("Get Gas Price")
+                            .frame(width: 300, height: 50)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                VStack {
+                    Text("Client Version: \(metaMaskRepo.web3ClientVersion)")
+                        .fontWeight(.bold)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+
+                    Button {
+                        Task {
+                            showProgressView = true
+                            await metaMaskRepo.getWeb3ClientVersion()
+                            showProgressView = false
+                        }
+                    } label: {
+                        Text("Get Web3 Client Version")
                             .frame(width: 300, height: 50)
                     }
                     .buttonStyle(.borderedProminent)
