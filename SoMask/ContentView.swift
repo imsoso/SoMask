@@ -12,46 +12,61 @@ struct ContentView: View {
 //    @Query private var items: [Item]
     @StateObject var metaMaskRepo = MetaMaskRepo()
     @State private var status = "Not Connected"
-    
+    @State private var showProgressView = false
+
     var body: some View {
-        VStack(alignment:.leading, spacing: 32){
-            Text("SoMask")
-                .font(.title)
-            Text("Status: \(metaMaskRepo.metamaskSDK.connected)")
-                .fontWeight(.bold)
-            Text("Chain ID: \(metaMaskRepo.metamaskSDK.chainId)")
-                .fontWeight(.bold)
-            Text("Account: \(metaMaskRepo.metamaskSDK.account)")
-                .fontWeight(.bold)
-            Button {
-                Task {
-                    await metaMaskRepo.connectToDapp()
+        ZStack{
+            VStack(alignment:.leading, spacing: 32){
+                Text("SoMask")
+                    .font(.title)
+                Text("Status: \(metaMaskRepo.metamaskSDK.connected)")
+                    .fontWeight(.bold)
+                Text("Chain ID: \(metaMaskRepo.metamaskSDK.chainId)")
+                    .fontWeight(.bold)
+                Text("Account: \(metaMaskRepo.metamaskSDK.account)")
+                    .fontWeight(.bold)
+                VStack {
+                    Button {
+                        Task {
+                            await metaMaskRepo.connectToDapp()
+                        }
+                    } label: {
+                        Text("Connect to metamask")
+                            .frame(width: 300, height: 50)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    Text("Balance: \(metaMaskRepo.balance)")
+                        .fontWeight(.bold)
+                    Button {
+                        Task {
+                            await metaMaskRepo.getAccountBalance()
+                        }
+                    } label: {
+                        Text("Get account balance")
+                            .frame(width: 300, height: 50)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
-            } label: {
-                Text("Connect to metamask")
-                    .frame(width: 300, height: 50)
+                Spacer()
             }
-            .buttonStyle(.borderedProminent)
-            Text("Balance: \(metaMaskRepo.balance)")
-                .fontWeight(.bold)
-            Button {
-                Task {
-                    await metaMaskRepo.getAccountBalance()
+            if showProgressView {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color.black.opacity(0.4))
+                        .frame(width: 120, height: 120)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(2)
                 }
-            } label: {
-                Text("Get account balance")
-                    .frame(width: 300, height: 50)
             }
-            .buttonStyle(.borderedProminent)
-            Spacer()
         }
+        
         .onReceive(NotificationCenter.default.publisher(for: .Connection)) { notification in
             status = notification.userInfo?["value"] as? String ?? "Not Connected"
         }
         .onOpenURL { url in
               handleURL(url)
         }
-        .padding()
     }
     
     
