@@ -47,6 +47,21 @@ struct ContentView: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                VStack {
+                    Text("Gas price: \(metaMaskRepo.gasPrice)")
+                        .fontWeight(.bold)
+                    Button {
+                        Task {
+                            showProgressView = true
+                            await metaMaskRepo.getGasPrice()
+                            showProgressView = false
+                        }
+                    } label: {
+                        Text("Get Gas Price")
+                            .frame(width: 300, height: 50)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
                 Spacer()
             }
             if showProgressView {
