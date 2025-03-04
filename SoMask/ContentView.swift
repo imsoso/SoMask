@@ -68,8 +68,7 @@ struct ContentView: View {
                             .sheet(isPresented: $isConnectWith, onDismiss: {
                                 isConnectWith = false
                             }) {
-                                //                            TransactionView(isConnectWith: true)
-                                //                                .environmentObject(metaMaskSDK)
+                                TransactionView(isConnectWith: true).environmentObject(metaMaskRepo.metamaskSDK)
                             }
                             .modifier(ButtonStyle())
                             
@@ -83,8 +82,7 @@ struct ContentView: View {
                             .sheet(isPresented: $isConnectAndSign, onDismiss: {
                                 isConnectAndSign = false
                             }) {
-                                //                            SignView(isConnectAndSign: true)
-                                //                                .environmentObject(metaMaskSDK)
+                                SignView(isConnectAndSign: true).environmentObject(metaMaskRepo.metamaskSDK)
                             }
                             .modifier(ButtonStyle())
                             ZStack {
@@ -124,14 +122,14 @@ struct ContentView: View {
                             }
                             .modifier(ButtonStyle())
                             
-                            Button {
-                                metaMaskRepo.metamaskSDK.disconnect()
-                            } label: {
-                                Text("Disconnect")
-                                    .modifier(TextButton())
-                                    .frame(maxWidth: .infinity, maxHeight: 32)
-                            }
-                            .modifier(ButtonStyle())
+//                            Button {
+//                                metaMaskRepo.metamaskSDK.disconnect()
+//                            } label: {
+//                                Text("Disconnect")
+//                                    .modifier(TextButton())
+//                                    .frame(maxWidth: .infinity, maxHeight: 32)
+//                            }
+//                            .modifier(ButtonStyle())
                         }
                     }
                     
