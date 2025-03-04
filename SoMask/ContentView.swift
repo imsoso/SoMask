@@ -47,11 +47,11 @@ struct ContentView: View {
                                 //                            NavigationLink("Transact") {
                                 //                                TransactionView().environmentObject(metaMaskSDK)
                                 //                            }
-                                
-                                //                            NavigationLink("Switch chain") {
-                                //                                SwitchChainView().environmentObject(metaMaskSDK)
-                                //                            }
-                                
+                                if !metaMaskRepo.metamaskSDK.account.isEmpty {   
+                                    NavigationLink("Switch chain") {
+                                        SwitchChainView().environmentObject(metaMaskRepo.metamaskSDK)
+                                    }
+                                }
                                 NavigationLink("Read-only RPCs") {
                                     ReadOnlyCallsView().environmentObject(metaMaskRepo.metamaskSDK)
                                 }
