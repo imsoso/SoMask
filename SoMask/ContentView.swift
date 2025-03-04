@@ -36,14 +36,14 @@ struct ContentView: View {
                     if !metaMaskRepo.metamaskSDK.account.isEmpty {
                         Section {
                             Group {
-                                //                            NavigationLink("Sign") {
-                                //                                SignView().environmentObject(metaMaskSDK)
-                                //                            }
-                                
-                                //                            NavigationLink("Chained signing") {
-                                //                                SignView(isChainedSigning: true).environmentObject(metaMaskSDK)
-                                //                            }
-                                
+                                NavigationLink("Sign") {
+                                    SignView().environmentObject(metaMaskRepo.metamaskSDK)
+                                }
+    
+                                NavigationLink("Chained signing") {
+                                    SignView(isChainedSigning: true).environmentObject(metaMaskRepo.metamaskSDK)
+                                }
+    
                                 //                            NavigationLink("Transact") {
                                 //                                TransactionView().environmentObject(metaMaskSDK)
                                 //                            }
