@@ -43,13 +43,15 @@ struct ContentView: View {
                                 NavigationLink("Chained signing") {
                                     SignView(isChainedSigning: true).environmentObject(metaMaskRepo.metamaskSDK)
                                 }
-    
-                                //                            NavigationLink("Transact") {
-                                //                                TransactionView().environmentObject(metaMaskSDK)
-                                //                            }
+                                
+                                NavigationLink("Transact") {
+                                    TransactionView().environmentObject(metaMaskRepo.metamaskSDK)
+                                }
+                                
                                 NavigationLink("Switch chain") {
                                     SwitchChainView().environmentObject(metaMaskRepo.metamaskSDK)
                                 }
+                                
                                 NavigationLink("Read-only RPCs") {
                                     ReadOnlyCallsView().environmentObject(metaMaskRepo.metamaskSDK)
                                 }
