@@ -1,8 +1,4 @@
-以下是一个示例 `README.md` 文件，用于描述你基于 MetaMask SDK 开发的 Swift 项目。你可以根据实际项目细节进行调整：
-
----
-
-# MetaMask Swift SDK 示例
+# MetaMask Swift SDK
 
 这是一个基于 **MetaMask SDK** 的 Swift 项目，展示了如何与 MetaMask 钱包进行交互。通过该项目，你可以实现以下功能：
 
