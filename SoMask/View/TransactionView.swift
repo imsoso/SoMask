@@ -13,7 +13,8 @@ import metamask_ios_sdk
 struct TransactionView: View {
     @EnvironmentObject var metamaskSDK: MetaMaskSDK
 
-    @State private var value = "0x8ac7230489e80000"
+    @State private var value = "1"
+        
     @State var result: String = ""
     @State private var errorMessage = ""
     @State private var showError = false
@@ -92,11 +93,36 @@ struct TransactionView: View {
         .background(Color.blue.grayscale(0.5))
     }
 
+    // Convert ETH to Wei (hex string)
+    func convertEthToWeiHex(eth: String) -> String? {
+        // Ensure the input is a valid decimal number
+        guard let ethValue = Decimal(string: eth) else {
+            return nil
+        }
+        
+        // Define the conversion factor: 1 ETH = 10^18 Wei
+        let weiPerEth = Decimal(sign: .plus, exponent: 18, significand: 1)
+        
+        // Perform the conversion
+        let weiValue = ethValue * weiPerEth
+        
+        // Convert Decimal to NSDecimalNumber
+        let weiNSDecimal = weiValue as NSDecimalNumber
+        
+        // Convert NSDecimalNumber to a hexadecimal string
+        let weiHex = String(format: "0x%02llx", weiNSDecimal.uint64Value)
+        
+        return weiHex
+    }
+    
     func sendTransaction() async {
+        print("sending value: \(value)")
+
+        print("sending eth : \(convertEthToWeiHex(eth:value) )" )
         let transaction = Transaction(
             to: to,
             from: metamaskSDK.account,
-            value: value
+            value: convertEthToWeiHex(eth:value) ?? "0"
         )
 
         let parameters: [Transaction] = [transaction]
@@ -110,7 +136,7 @@ struct TransactionView: View {
 
         let transactionResult = isConnectWith
         ? await metamaskSDK.connectWith(transactionRequest)
-        : await metamaskSDK.sendTransaction(from: metamaskSDK.account, to: to, value: value)
+        : await metamaskSDK.sendTransaction(from: metamaskSDK.account, to: to, value: convertEthToWeiHex(eth:value) ?? "0")
 
         showProgressView = false
 
