@@ -8,8 +8,6 @@
 import SwiftUI
 import SwiftData
 struct ContentView: View {
-//    @Environment(\.modelContext) private var modelContext
-//    @Query private var items: [Item]
     @ObservedObject var metaMaskRepo = MetaMaskRepo()
     @State private var status = "Not Connected"
     @State private var showProgressView = false
@@ -113,9 +111,6 @@ struct ContentView: View {
                                     message: Text(metaMaskRepo.errorMessage)
                                 )
                             }
-                        } footer: {
-                            //                        Text(connectAndSignResult)
-                            //                            .modifier(TextCaption())
                         }
                     }
                     if !metaMaskRepo.metamaskSDK.account.isEmpty {
@@ -180,5 +175,4 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-//        .modelContainer(for: Item.self, inMemory: true)
 }
