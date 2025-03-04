@@ -142,7 +142,7 @@ struct ContentView: View {
                     
                 }
                 .font(.body)
-                .navigationTitle("Dub Dapp")
+                .navigationTitle("SoMask")
                 .onAppear {
                     showProgressView = false
                 }
