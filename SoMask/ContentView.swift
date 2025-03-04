@@ -134,6 +134,7 @@ struct ContentView: View {
                     }
                     
                 }
+                .padding(.horizontal, 20) // Make Vstack offset 20
                 .font(.body)
                 .navigationTitle("SoMask")
                 .onAppear {
