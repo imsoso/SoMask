@@ -13,8 +13,7 @@ import metamask_ios_sdk
 
 @MainActor
 struct ReadOnlyCallsView: View {
-    @EnvironmentObject var metaMaskRepo: MetaMaskRepo
-//    @ObservedObject var metaMaskRepo = MetaMaskRepo()
+    @ObservedObject var metaMaskRepo = MetaMaskRepo()
 
     @State private var showProgressView = false
     @State private var errorMessage = ""
