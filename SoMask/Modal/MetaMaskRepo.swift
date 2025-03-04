@@ -139,7 +139,6 @@ class MetaMaskRepo: ObservableObject {
         switch requestResult {
         case let .success(value):
             web3ClientVersion = value
-//            gasPrice = weiToEthString(hexWei:value, decimalPlaces: 18) ?? "0"
             errorMessage = ""
         case let .failure(error):
             errorMessage = error.localizedDescription
