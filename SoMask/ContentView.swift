@@ -115,7 +115,33 @@ struct ContentView: View {
 //                            .modifier(TextCaption())
                     }
                 }
+                if !metaMaskRepo.metamaskSDK.account.isEmpty {
+                    Section {
+                        Button {
+                            metaMaskRepo.metamaskSDK.clearSession()
+                        } label: {
+                            Text("Clear Session")
+                                .modifier(TextButton())
+                                .frame(maxWidth: .infinity, maxHeight: 32)
+                        }
+                        .modifier(ButtonStyle())
 
+                        Button {
+                            metaMaskRepo.metamaskSDK.disconnect()
+                        } label: {
+                            Text("Disconnect")
+                                .modifier(TextButton())
+                                .frame(maxWidth: .infinity, maxHeight: 32)
+                        }
+                        .modifier(ButtonStyle())
+                    }
+                }
+
+            }
+            .font(.body)
+            .navigationTitle("Dub Dapp")
+            .onAppear {
+                showProgressView = false
             }
             if showProgressView {
                 ZStack {
