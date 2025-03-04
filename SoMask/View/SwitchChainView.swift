@@ -37,7 +37,8 @@ struct SwitchChainView: View {
         case avalanche = "0xa86a"
         case ethereum = "0x1"
         case polygon = "0x89"
-
+        case sepolia = "0xaa36a7"
+        
         var id: Self { self }
 
         var chainId: String {
@@ -49,6 +50,7 @@ struct SwitchChainView: View {
                 case .polygon: return "Polygon"
                 case .ethereum: return "Ethereum"
                 case .avalanche: return "Avalanche"
+                case .sepolia: return "Sepolia"
             }
         }
 
@@ -57,6 +59,7 @@ struct SwitchChainView: View {
                 case .polygon: return "MATIC"
                 case .ethereum: return "ETH"
                 case .avalanche: return "AVAX"
+                case .sepolia: return "SPL"
             }
         }
 
@@ -64,6 +67,7 @@ struct SwitchChainView: View {
             switch self {
             case .polygon: return ["https://polygon-rpc.com"]
             case .avalanche: return ["https://api.avax.network/ext/bc/C/rpc"]
+            case .sepolia: return ["https://api.zan.top/eth-sepolia"]
             default: return []
             }
         }
@@ -120,9 +124,16 @@ struct SwitchChainView: View {
             }
         }
         .onAppear {
-            networkSelection = metamaskSDK.chainId == networkSelection.rawValue
-            ? .ethereum
-            : .polygon
+            switch metamaskSDK.chainId {
+            case Network.ethereum.rawValue:
+                networkSelection = .ethereum
+            case Network.polygon.rawValue:
+                networkSelection = .polygon
+            case Network.sepolia.rawValue:
+                networkSelection = .sepolia
+            default:
+                networkSelection = .ethereum
+            }
         }
         .background(Color.blue.grayscale(0.5))
     }
