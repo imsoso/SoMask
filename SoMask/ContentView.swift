@@ -107,12 +107,12 @@ struct ContentView: View {
                                         .progressViewStyle(CircularProgressViewStyle(tint: .black))
                                 }
                             }
-                            //                        .alert(isPresented: $showError) {
-                            //                            Alert(
-                            //                                title: Text("Error"),
-                            //                                message: Text(errorMessage)
-                            //                            )
-                            //                        }
+                            .alert(isPresented: $metaMaskRepo.showError) {
+                                Alert(
+                                    title: Text("Error"),
+                                    message: Text(metaMaskRepo.errorMessage)
+                                )
+                            }
                         } footer: {
                             //                        Text(connectAndSignResult)
                             //                            .modifier(TextCaption())
