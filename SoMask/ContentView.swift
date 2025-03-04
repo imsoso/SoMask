@@ -10,79 +10,112 @@ import SwiftData
 struct ContentView: View {
 //    @Environment(\.modelContext) private var modelContext
 //    @Query private var items: [Item]
-    @StateObject var metaMaskRepo = MetaMaskRepo()
+    @ObservedObject var metaMaskRepo = MetaMaskRepo()
     @State private var status = "Not Connected"
     @State private var showProgressView = false
-
+    @State private var isConnectWith = false
+    @State private var isConnectAndSign = false
+    
     var body: some View {
         ZStack{
             VStack(alignment:.leading, spacing: 32){
-                Text("SoMask")
-                    .font(.title)
-                Text("Status: \(metaMaskRepo.metamaskSDK.connected)")
-                    .fontWeight(.bold)
-                Text("Chain ID: \(metaMaskRepo.metamaskSDK.chainId)")
-                    .fontWeight(.bold)
-                Text("Account: \(metaMaskRepo.metamaskSDK.account)")
-                    .fontWeight(.bold)
-                VStack {
-                    Button {
-                        Task {
-                            await metaMaskRepo.connectToDapp()
-                        }
-                    } label: {
-                        Text("Connect to metamask")
-                            .frame(width: 300, height: 50)
+                Section {
+                    Group {
+                        
+                        Text("Status: \(metaMaskRepo.metamaskSDK.connected)")
+                            .fontWeight(.bold)
+                        Text("Chain ID: \(metaMaskRepo.metamaskSDK.chainId)")
+                            .fontWeight(.bold)
+                        Text("Account: \(metaMaskRepo.metamaskSDK.account)")
+                            .fontWeight(.bold)
                     }
-                    .buttonStyle(.borderedProminent)
-                    Text("Balance: \(metaMaskRepo.balance)")
-                        .fontWeight(.bold)
-                    Button {
-                        Task {
-                            showProgressView = true
-                            await metaMaskRepo.getAccountBalance()
-                            showProgressView = false
-                        }
-                    } label: {
-                        Text("Get account balance")
-                            .frame(width: 300, height: 50)
-                    }
-                    .buttonStyle(.borderedProminent)
                 }
-                VStack {
-                    Text("Gas price: \(metaMaskRepo.gasPrice)")
-                        .fontWeight(.bold)
-                    Button {
-                        Task {
-                            showProgressView = true
-                            await metaMaskRepo.getGasPrice()
-                            showProgressView = false
-                        }
-                    } label: {
-                        Text("Get Gas Price")
-                            .frame(width: 300, height: 50)
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                VStack {
-                    Text("Client Version: \(metaMaskRepo.web3ClientVersion)")
-                        .fontWeight(.bold)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
+                if !metaMaskRepo.metamaskSDK.account.isEmpty {
+                    Section {
+                        Group {
+//                            NavigationLink("Sign") {
+//                                SignView().environmentObject(metaMaskSDK)
+//                            }
 
-                    Button {
-                        Task {
-                            showProgressView = true
-                            await metaMaskRepo.getWeb3ClientVersion()
-                            showProgressView = false
+//                            NavigationLink("Chained signing") {
+//                                SignView(isChainedSigning: true).environmentObject(metaMaskSDK)
+//                            }
+
+//                            NavigationLink("Transact") {
+//                                TransactionView().environmentObject(metaMaskSDK)
+//                            }
+
+//                            NavigationLink("Switch chain") {
+//                                SwitchChainView().environmentObject(metaMaskSDK)
+//                            }
+
+                            NavigationLink("Read-only RPCs") {
+                                ReadOnlyCallsView().environmentObject(metaMaskRepo.metamaskSDK)
+                            }
                         }
-                    } label: {
-                        Text("Get Web3 Client Version")
-                            .frame(width: 300, height: 50)
                     }
-                    .buttonStyle(.borderedProminent)
                 }
-                Spacer()
+                if metaMaskRepo.metamaskSDK.account.isEmpty {
+                    Section {
+                        Button {
+                            isConnectWith = true
+                        } label: {
+                            Text("Connect With Request")
+                                .modifier(TextButton())
+                                .frame(maxWidth: .infinity, maxHeight: 32)
+                        }
+                        .sheet(isPresented: $isConnectWith, onDismiss: {
+                            isConnectWith = false
+                        }) {
+//                            TransactionView(isConnectWith: true)
+//                                .environmentObject(metaMaskSDK)
+                        }
+                        .modifier(ButtonStyle())
+
+                        Button {
+                            isConnectAndSign = true
+                        } label: {
+                            Text("Connect & Sign")
+                                .modifier(TextButton())
+                                .frame(maxWidth: .infinity, maxHeight: 32)
+                        }
+                        .sheet(isPresented: $isConnectAndSign, onDismiss: {
+                            isConnectAndSign = false
+                        }) {
+//                            SignView(isConnectAndSign: true)
+//                                .environmentObject(metaMaskSDK)
+                        }
+                        .modifier(ButtonStyle())
+                        ZStack {
+                            Button {
+                                Task {
+                                    await metaMaskRepo.connectToDapp()
+                                }
+                            } label: {
+                                Text("Connect to MetaMask")
+                                    .modifier(TextButton())
+                                    .frame(maxWidth: .infinity, maxHeight: 32)
+                            }
+                            .modifier(ButtonStyle())
+
+                            if showProgressView {
+                                ProgressView()
+                                    .scaleEffect(1.5, anchor: .center)
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .black))
+                            }
+                        }
+//                        .alert(isPresented: $showError) {
+//                            Alert(
+//                                title: Text("Error"),
+//                                message: Text(errorMessage)
+//                            )
+//                        }
+                    } footer: {
+//                        Text(connectAndSignResult)
+//                            .modifier(TextCaption())
+                    }
+                }
+
             }
             if showProgressView {
                 ZStack {
