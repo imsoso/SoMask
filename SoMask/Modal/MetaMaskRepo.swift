@@ -24,13 +24,13 @@ class MetaMaskRepo: ObservableObject {
                 name: .Connection, object: nil, userInfo: ["value": connectionStatus])
         }
     }
-    @Published  var metamaskSDK: MetaMaskSDK
+    @Published var metamaskSDK: MetaMaskSDK
     @Published var balance = ""
     @Published var gasPrice = ""
     @Published var web3ClientVersion = ""
 
-    private var errorMessage = ""
-    private var showError = false
+    @Published var errorMessage = ""
+    @Published var showError = false
 
     private var cancellables = Set<AnyCancellable>()
 
